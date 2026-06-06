@@ -513,6 +513,10 @@ on:
       pppoe_password:
         description: "宽带密码 (若启用PPPoE)"
         required: false
+      custom_packages:
+        description: "第三方软件包列表 (空格分隔，留空表示不添加)"
+        required: false
+        default: "luci-i18n-passwall2-zh-cn"
 
 
 permissions:
@@ -636,6 +640,7 @@ jobs:
               -e ENABLE_PPPOE=${{ inputs.enable_pppoe }} \
               -e PPPOE_ACCOUNT=${{ inputs.pppoe_account }} \
               -e PPPOE_PASSWORD=${{ inputs.pppoe_password }} \
+              -e CUSTOM_PACKAGES="${{ github.event.inputs.custom_packages }}" \
             immortalwrt/imagebuilder:$tag /bin/bash /home/build/immortalwrt/build.sh
           
 
